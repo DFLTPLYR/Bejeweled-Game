@@ -48,15 +48,6 @@ let moves = 0;
 
 // Function to swap two gems
 function swapGems(x1, y1, x2, y2) {
-  if (
-    x1 === undefined ||
-    y1 === undefined ||
-    x2 === undefined ||
-    y2 === undefined
-  ) {
-    return "impossible move";
-  }
-
   const temp = board[x1][y1];
   board[x1][y1] = board[x2][y2];
   board[x2][y2] = temp;
@@ -103,6 +94,12 @@ function dropGems() {
   }
 }
 
+const validateMove = (x1, y1, x2, y2) => {
+  if (x1 != "" || x2 != "" || y1 != "" || y2 != "") {
+    return console.log("Invalid input");
+  } else swapGems(x1, y1, x2, y2);
+};
+
 // Game loop
 while (true) {
   // Print the game board
@@ -118,8 +115,8 @@ while (true) {
       ?.split(" ")
       .map(Number) ?? [];
 
-  // Swap the gems
-  swapGems(x1, y1, x2, y2);
+  // Validate the input
+  validateMove(x1, y1, x2, y2);
 
   // Check for sets of three or more identical gems
   checkSets();
@@ -133,7 +130,7 @@ while (true) {
   console.log("Score:", score, "Moves:", moves);
 
   // Check if there are no more moves left
-  if (moves > 100) {
+  if (moves > 10) {
     console.log("Game over! Your score is:", score);
     break;
   }
