@@ -1,5 +1,7 @@
 # Game Name
 
+💎💎💎Terminal Bejeweled💎💎💎
+
 ## Getting Started
 
 To run the game, navigate to the project directory and execute the following command:
