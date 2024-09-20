@@ -4,43 +4,9 @@ const generateNumber = () => {
 };
 //rows
 // Game board
-const board = [
-  [
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-  ],
-  [
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-  ],
-  [
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-  ],
-  [
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-  ],
-  [
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-    generateNumber(),
-  ],
-];
+const board = Array.from({ length: 10 }, () =>
+  Array.from({ length: 10 }, generateNumber)
+);
 
 // Game variables
 let score = 0;
@@ -48,9 +14,7 @@ let moves = 0;
 
 // Function to swap two gems
 function swapGems(x1, y1, x2, y2) {
-  const temp = board[x1][y1];
-  board[x1][y1] = board[x2][y2];
-  board[x2][y2] = temp;
+  [board[x1][y1], board[x2][y2]] = [board[x2][y2], board[x1][y1]];
 }
 
 // Function to check for sets of three or more identical gems
@@ -100,10 +64,32 @@ const validateMove = (x1, y1, x2, y2) => {
   } else swapGems(x1, y1, x2, y2);
 };
 
+const hudGui = console.log(
+  "\x1b[32m Score: \x1b[0m",
+  score,
+  "\x1b[34m Moves: \x1b[0m",
+  moves
+);
+
+const currentBoard = () => {
+  const rowSize = new Array(...board[0].keys());
+  const row = "\x1b[31m" + "  " + [...rowSize].join(" ") + "\x1b[0m";
+  return console.log(row);
+};
+
+// Print the game board
+currentBoard();
+
+// Print the game board
+board.forEach((row, index) => {
+  const indx = "\x1b[31m" + index + "\x1b[0m";
+  console.log(indx, ...row);
+});
+
 // Game loop
 while (true) {
   // Print the game board
-  board.forEach((row) => console.log(row.join(" ")));
+  hudGui;
 
   // Ask the player for input
   const input = prompt(

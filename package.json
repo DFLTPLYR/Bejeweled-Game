@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "Bun Bejeweled.ts"
+    "start": "Bun --hot Bejeweled.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
