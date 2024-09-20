@@ -128,7 +128,9 @@ while (true) {
   dropGems();
 
   // Increment the move counter
+  console.clear();
   moves++;
+  console.log("Score:", score, "Moves:", moves);
 
   // Check if there are no more moves left
   if (moves > 100) {
