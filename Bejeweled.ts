@@ -13,7 +13,7 @@ let score = 0;
 let moves = 0;
 
 // Function to swap two gems
-function swapGems(x1, y1, x2, y2) {
+function swapGems(x1: number, y1: number, x2: number, y2: number) {
   [board[x1][y1], board[x2][y2]] = [board[x2][y2], board[x1][y1]];
 }
 
@@ -58,43 +58,52 @@ function dropGems() {
   }
 }
 
-const validateMove = (x1, y1, x2, y2) => {
+const validateMove = (
+  x1: string | number,
+  y1: string | number,
+  x2: string | number,
+  y2: string | number
+) => {
   if (x1 != "" || x2 != "" || y1 != "" || y2 != "") {
     return console.log("Invalid input");
   } else swapGems(x1, y1, x2, y2);
 };
 
-const hudGui = console.log(
-  "\x1b[32m Score: \x1b[0m",
-  score,
-  "\x1b[34m Moves: \x1b[0m",
-  moves
-);
+const hudGui = () => {
+  return console.log(
+    "\x1b[32m Score: \x1b[0m",
+    score,
+    "\x1b[34m Moves: \x1b[0m",
+    moves
+  );
+};
 
 const currentBoard = () => {
+  hudGui();
   const rowSize = new Array(...board[0].keys());
   const row = "\x1b[31m" + "  " + [...rowSize].join(" ") + "\x1b[0m";
   return console.log(row);
 };
 
-// Print the game board
-currentBoard();
-
-// Print the game board
-board.forEach((row, index) => {
-  const indx = "\x1b[31m" + index + "\x1b[0m";
-  console.log(indx, ...row);
-});
+const ContainerBoard = () => {
+  board.forEach((row, index) => {
+    const indx = "\x1b[31m" + index + "\x1b[0m";
+    console.log(indx, ...row);
+  });
+};
 
 // Game loop
 while (true) {
   // Print the game board
-  hudGui;
+  console.clear();
+  currentBoard();
+  ContainerBoard();
 
   // Ask the player for input
   const input = prompt(
     "Enter the coordinates of the gem you want to swap (x y): "
   );
+
   const [x1, y1] = input?.split(" ").map(Number) ?? [];
   const [x2, y2] =
     prompt("Enter the coordinates of the gem you want to swap with (x y): ")
@@ -111,7 +120,6 @@ while (true) {
   dropGems();
 
   // Increment the move counter
-  console.clear();
   moves++;
   console.log("Score:", score, "Moves:", moves);
 
